@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Careers{% endblock %}{% block content %}
+<div class="card"><h2>&#128188; Career Explorer</h2><p class="muted">Indicative entry-level salaries in India (LPA).</p>
+<a class="btn sm {{ '' if not q else 'alt' }}" href="{{ url_for('careers') }}">All</a> {% for c in ['Tech','Data','Creative','Marketing','Business'] %}<a class="btn sm {{ '' if q==c else 'alt' }}" href="{{ url_for('careers', cat=c) }}">{{ c }}</a> {% endfor %}</div>
+<div class="grid">{% for k,r in ROLES.items() if not q or r[1]==q %}<div class="card"><h3 style="margin:0">{{ r[0] }}</h3><span class="badge b">{{ r[1] }}</span> <span class="badge {{ 'g' if r[4]=='High' else 'o' }}">{{ r[4] }} demand</span>
+<p>{{ r[7] }}</p><p><b>{{ '%g'|format(r[3][0]) }} - {{ '%g'|format(r[3][1]) }} LPA</b></p><p class="muted">Key skills: {% for s,w in r[2].items() if w==3 %}{{ SKILLS[s][0] }}{{ ', ' if not loop.last }}{% endfor %}</p><a class="btn sm" href="{{ url_for('roadmap', role=k) }}">See roadmap</a></div>{% endfor %}</div>{% endblock %}

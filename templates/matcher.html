@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Career Matcher{% endblock %}{% block content %}
+<div class="card"><h2>&#127919; Career Matcher</h2><form method="post"><input type="hidden" name="csrf" value="{{ csrf }}">
+{% for cat in ['Tech','Data','Creative','Marketing','Business','Soft'] %}<h4 style="margin:.8rem 0 .3rem">{{ cat }} skills</h4><div class="chips">{% for k,v in SKILLS.items() if v[1]==cat %}<label><input type="checkbox" name="skills" value="{{ k }}" {{ 'checked' if k in chosen }}>{{ v[0] }}</label>{% endfor %}</div>{% endfor %}
+<div class="cols"><div><label>Your city type</label><select name="tier"><option value="1" {{ 'selected' if tier=='1' }}>Tier 1 (Mumbai, Delhi, Bengaluru...)</option><option value="2" {{ 'selected' if tier=='2' }}>Tier 2 (Pune, Nashik, Jaipur...)</option><option value="3" {{ 'selected' if tier=='3' }}>Tier 3 / Small town</option></select></div>
+<div><label>&nbsp;</label><label style="font-weight:500"><input type="checkbox" name="remote" style="width:auto" {{ 'checked' if remote }}> I am open to remote work</label></div></div><br><button class="btn">Find my best careers</button></form></div>
+{% if results %}<h3>Your top matches</h3>{% for r in results %}<div class="card role"><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><h3 style="margin:0">{{ loop.index }}. {{ r.title }}</h3><span class="score" style="font-size:1.8rem">{{ r.score }}%</span></div>
+<div class="bar"><i style="width:{{ r.score }}%"></i></div><p>{{ r.desc }}</p>
+<p><span class="badge b">{{ r.salary }}</span> <span class="badge {{ 'g' if r.demand=='High' else 'o' }}">{{ r.demand }} demand</span> <span class="badge {{ 'g' if r.local=='High' else 'o' if r.local=='Medium' else 'r' }}">Local jobs: {{ r.local }}</span> {% if r.remote %}<span class="badge g">Remote-friendly</span>{% endif %}</p>
+<p><b>You have:</b> {{ r.matched|join(', ') or 'none yet' }}<br><b>To learn:</b> {{ r.missing|join(', ') or 'Nothing - you are fully matched!' }}</p>
+<a class="btn sm" href="{{ url_for('roadmap', role=r.key) }}?{% for k in chosen %}have={{ k }}&{% endfor %}">View roadmap</a></div>{% endfor %}{% endif %}{% endblock %}

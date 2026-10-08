@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<div class="hero"><h1>Find the career that fits your skills</h1><p>Pick your skills and city type, get ranked career matches, a step-by-step learning roadmap, an ATS-friendly resume and interview practice. Built for UN SDG 8: Decent Work &amp; Economic Growth.</p>
+<a class="btn gold" href="{{ url_for('matcher') }}">Find my career</a> <a class="btn alt" href="{{ url_for('resume') }}">Build my resume</a></div>
+<div class="grid">
+<a class="feat" href="{{ url_for('matcher') }}"><div class="ic">&#127919;</div><h3>Career Matcher</h3><p class="muted">Ranks {{ ROLES|length }} careers by skill match, local job availability and remote options.</p></a>
+<a class="feat" href="{{ url_for('careers') }}"><div class="ic">&#128188;</div><h3>Career Explorer</h3><p class="muted">Salary range, demand and required skills for every role.</p></a>
+<a class="feat" href="{{ url_for('matcher') }}"><div class="ic">&#128640;</div><h3>Skill-gap Roadmap</h3><p class="muted">Week-by-week plan with free learning resources and progress tracking.</p></a>
+<a class="feat" href="{{ url_for('resume') }}"><div class="ic">&#128196;</div><h3>Resume Builder</h3><p class="muted">Live resume score with tips and PDF download.</p></a>
+<a class="feat" href="{{ url_for('interview') }}"><div class="ic">&#127908;</div><h3>Mock Interview</h3><p class="muted">HR and role-specific questions with instant answer feedback.</p></a>
+<a class="feat" href="{{ url_for('dashboard') }}"><div class="ic">&#128202;</div><h3>Dashboard</h3><p class="muted">Saved plans, resumes and interview history.</p></a></div>{% endblock %}

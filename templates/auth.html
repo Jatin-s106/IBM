@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}{{ mode|capitalize }}{% endblock %}{% block content %}
+<div class="card" style="max-width:420px;margin:auto"><h2>{{ 'Create account' if mode=='register' else 'Welcome back' }}</h2>
+<form method="post"><input type="hidden" name="csrf" value="{{ csrf }}">{% if mode=='register' %}<label>Full name</label><input name="name" required>{% endif %}
+<label>Email</label><input type="email" name="email" required><label>Password</label><input type="password" name="password" minlength="6" required><br><br><button class="btn">{{ 'Sign up' if mode=='register' else 'Log in' }}</button></form>
+<p class="muted">{% if mode=='register' %}Have an account? <a href="{{ url_for('login') }}">Log in</a>{% else %}New here? <a href="{{ url_for('register') }}">Sign up</a>{% endif %}</p></div>{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Mock Interview{% endblock %}{% block content %}
+<div class="card"><h2>&#127908; Mock Interview</h2><form method="get"><div class="cols"><div><label>Practice for role</label><select name="role" onchange="this.form.submit()">{% for k,r in ROLES.items() %}<option value="{{ k }}" {{ 'selected' if k==role }}>{{ r[0] }}</option>{% endfor %}</select></div></div></form>
+<p class="muted">Question {{ q.index + 1 }} of {{ q.total }} ({{ 'HR' if q.index < 4 else 'Technical' }})</p><h3>{{ q.question }}</h3>
+<form method="post"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="role" value="{{ role }}"><input type="hidden" name="q" value="{{ q.index }}"><textarea name="answer" style="min-height:130px" placeholder="Type your answer as you would say it in an interview...">{{ answer }}</textarea><br><button class="btn">Get feedback</button>
+{% if q.index > 0 %}<a class="btn alt" href="{{ url_for('interview', role=role, q=q.index-1) }}">Previous</a>{% endif %}{% if q.index + 1 < q.total %}<a class="btn alt" href="{{ url_for('interview', role=role, q=q.index+1) }}">Next question</a>{% endif %}</form></div>
+{% if out %}<div class="card"><div class="score">{{ out.score }}/100</div><div class="bar"><i style="width:{{ out.score }}%"></i></div>{% for f in out.feedback %}<p>{{ f }}</p>{% endfor %}
+{% if out.hit %}<p><b>Key points you covered:</b> {{ out.hit|join(', ') }}</p>{% endif %}</div>{% endif %}{% endblock %}
